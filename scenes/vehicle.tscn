@@ -1,0 +1,172 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://scenes/vehicle.gd" type="Script" id=1]
+[ext_resource path="res://imgs/tyre.png" type="Texture" id=2]
+[ext_resource path="res://imgs/body.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 85.0
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 200, 30 )
+
+[node name="Node2D" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="front" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 104.735, 148.247 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 2.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="Sprite" type="Sprite" parent="front"]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="front"]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="rear" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( -130.226, 149.77 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 2.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="Sprite" type="Sprite" parent="rear"]
+
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rear"]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="body" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 0.180084, -1.14871 )
+input/pickable = false
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, -2.17344, -8.95189 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 2.04082
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="Sprite" type="Sprite" parent="body"]
+
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+
+transform/pos = Vector2( -2.17344, -8.95189 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="frontSpring" type="DampedSpringJoint2D" parent="body"]
+
+transform/pos = Vector2( 105.378, -3.05176e-05 )
+node_a = NodePath("..")
+node_b = NodePath("../frontSpin")
+bias/bias = 0.0
+collision/exclude_nodes = true
+length = 150.0
+rest_length = 0.0
+stiffness = 20.0
+damping = 1.0
+
+[node name="frontSpin" type="PinJoint2D" parent="body"]
+
+transform/pos = Vector2( 105.378, 150.882 )
+node_a = NodePath("..")
+node_b = NodePath("../../front")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="rearSpring" type="DampedSpringJoint2D" parent="body"]
+
+transform/pos = Vector2( -129.327, 0 )
+node_a = NodePath("..")
+node_b = NodePath("../rearSpin")
+bias/bias = 0.0
+collision/exclude_nodes = true
+length = 150.0
+rest_length = 0.0
+stiffness = 1.0
+damping = 1.0
+
+[node name="rearSpin" type="PinJoint2D" parent="body"]
+
+transform/pos = Vector2( -130.525, 149.684 )
+node_a = NodePath("..")
+node_b = NodePath("../../rear")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+
